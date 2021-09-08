@@ -2,12 +2,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FaceRecognition.Models\FaceRecognition.Models.csproj" />
-    <ProjectReference Include="..\FaceRecognition.DB\FaceRecognition.DB.csproj" />
-    <ProjectReference Include="..\FaceRecognition.DTOs\FaceRecognition.DTOs.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="5.0.9" />
   </ItemGroup>
 
   <PropertyGroup>
