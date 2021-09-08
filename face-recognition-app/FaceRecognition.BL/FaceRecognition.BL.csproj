@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\FaceRecognition.Models\FaceRecognition.Models.csproj" />
+    <ProjectReference Include="..\FaceRecognition.DB\FaceRecognition.DB.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+</Project>
