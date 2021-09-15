@@ -31,6 +31,17 @@ namespace FaceRecognition.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "MyPolicy",
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost"
+                                            )
+                                .WithMethods("POST");
+                    });
+            });
+
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
 
@@ -39,9 +50,14 @@ namespace FaceRecognition.API
                 options.UseSqlServer(Configuration["ConnectionStrings:DBConnection"]));
 
 
-                services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<RecognitionContext>().AddDefaultTokenProviders();
+            services.AddIdentity<AppUser, IdentityRole>()
+            .AddEntityFrameworkStores<RecognitionContext>().AddDefaultTokenProviders();
 
+            services.Configure<IdentityOptions>(options =>
+                       {
+                           options.User.RequireUniqueEmail = true;
+                           options.Password.RequiredLength = 7;
+                       });
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -64,6 +80,8 @@ namespace FaceRecognition.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
