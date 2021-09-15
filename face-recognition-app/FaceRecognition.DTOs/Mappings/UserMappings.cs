@@ -23,6 +23,7 @@ namespace FaceRecognition.DTOs
                 Email = request.Email,
                 FirstName = request.FirstName,
                 LastName = request.LastName,
+                UserName = string.IsNullOrWhiteSpace(request.UserName) ? request.Email : request.UserName,
                 PhoneNumber = request.PhoneNumber
             };
         }
