@@ -4,11 +4,9 @@ using FaceRecognition.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 
 namespace FaceRecognition.API.Controllers
 {
-    [EnableCors("MyPolicy")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class AuthenticationController : ControllerBase
