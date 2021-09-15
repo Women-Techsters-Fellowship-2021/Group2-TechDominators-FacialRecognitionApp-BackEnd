@@ -25,6 +25,7 @@ namespace FaceRecognition.BL
                 if (await _userManager.CheckPasswordAsync(user, userRequest.Password))
                 {
                     var response = UserMappings.GetUserResponse(user);
+                    return response;
                 }
                 throw new AccessViolationException("Invalid credentials");
             }
