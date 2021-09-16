@@ -9,10 +9,12 @@ namespace FaceRecognition.BL
     public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly ITokenGenerator _tokenGenerator;
 
-        public AuthenticationService(UserManager<AppUser> userManager)
+        public AuthenticationService(UserManager<AppUser> userManager, ITokenGenerator tokenGenerator)
         {
             _userManager = userManager;
+            _tokenGenerator = tokenGenerator;
 
         }
 
@@ -25,12 +27,14 @@ namespace FaceRecognition.BL
                 if (await _userManager.CheckPasswordAsync(user, userRequest.Password))
                 {
                     var response = UserMappings.GetUserResponse(user);
+                    response.Token = await _tokenGenerator.GenerateToken(user);
                     return response;
                 }
                 throw new AccessViolationException("Invalid credentials");
             }
             throw new AccessViolationException("Invalid credentials");
         }
+
 
         // to create a new user
         public async Task<UserResponseDTO> Register(RegistrationRequest registrationRequest)
