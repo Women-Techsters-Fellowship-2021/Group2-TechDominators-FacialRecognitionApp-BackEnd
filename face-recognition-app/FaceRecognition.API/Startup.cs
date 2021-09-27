@@ -84,8 +84,12 @@ namespace FaceRecognition.API
             services.Configure<IdentityOptions>(options =>
                        {
                            options.User.RequireUniqueEmail = true;
-                           options.Password.RequiredLength = 7;
+                           options.Password.RequiredLength = 8;
+                           options.Password.RequireDigit = true;
+                           options.Password.RequireUppercase = true;
+                           options.Password.RequireNonAlphanumeric = true;
                        });
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

@@ -5,8 +5,8 @@ namespace FaceRecognition.BL
 {
     public interface IAuthenticationService
     {
-        Task<UserResponseDTO> Login(UserRequestDTO userRequest);
-        Task<UserResponseDTO> Register(RegistrationRequest registrationRequest);
+        Task<SchoolResponseDTO> Login(UserLoginRequestDTO userRequest);
+        Task<SchoolResponseDTO> Register(SchoolRegistrationRequest registrationRequest);
     }
 
 }

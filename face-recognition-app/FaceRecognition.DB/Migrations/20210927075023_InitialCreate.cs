@@ -26,10 +26,9 @@ namespace FaceRecognition.DB.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SchoolName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -156,6 +155,59 @@ namespace FaceRecognition.DB.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Age = table.Column<int>(type: "int", nullable: false),
+                    Class = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StudentPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SchoolId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Students_AspNetUsers_SchoolId",
+                        column: x => x.SchoolId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Parents",
+                columns: table => new
+                {
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Parents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Parents_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Parents_Students_StudentId",
+                        column: x => x.StudentId,
+                        principalTable: "Students",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -194,6 +246,21 @@ namespace FaceRecognition.DB.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Parents_StudentId",
+                table: "Parents",
+                column: "StudentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Parents_UserId",
+                table: "Parents",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Students_SchoolId",
+                table: "Students",
+                column: "SchoolId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -214,7 +281,13 @@ namespace FaceRecognition.DB.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Parents");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Students");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

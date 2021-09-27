@@ -31,8 +31,8 @@ namespace FaceRecognition.DB.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -41,10 +41,7 @@ namespace FaceRecognition.DB.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("Location")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -70,14 +67,14 @@ namespace FaceRecognition.DB.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("SchoolName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -94,6 +91,71 @@ namespace FaceRecognition.DB.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("FaceRecognition.Models.Parent", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Parents");
+                });
+
+            modelBuilder.Entity("FaceRecognition.Models.Student", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Age")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Class")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SchoolId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StudentPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SchoolId");
+
+                    b.ToTable("Students");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -227,6 +289,30 @@ namespace FaceRecognition.DB.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("FaceRecognition.Models.Parent", b =>
+                {
+                    b.HasOne("FaceRecognition.Models.Student", "Student")
+                        .WithMany("Parents")
+                        .HasForeignKey("StudentId");
+
+                    b.HasOne("FaceRecognition.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Student");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("FaceRecognition.Models.Student", b =>
+                {
+                    b.HasOne("FaceRecognition.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("SchoolId");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -276,6 +362,11 @@ namespace FaceRecognition.DB.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FaceRecognition.Models.Student", b =>
+                {
+                    b.Navigation("Parents");
                 });
 #pragma warning restore 612, 618
         }

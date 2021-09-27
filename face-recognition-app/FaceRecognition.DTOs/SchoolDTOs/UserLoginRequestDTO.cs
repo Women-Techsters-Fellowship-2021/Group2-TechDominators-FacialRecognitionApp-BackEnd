@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FaceRecognition.DTOs
 {
-    public class UserRequestDTO
+    public class UserLoginRequestDTO
     {
         [Required]
         public string Email { get; set; }

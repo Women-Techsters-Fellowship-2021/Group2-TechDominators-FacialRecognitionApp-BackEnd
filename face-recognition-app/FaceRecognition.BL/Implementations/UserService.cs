@@ -15,12 +15,13 @@ namespace FaceRecognition.BL
         }
 
         // to retrieve a specific user
-        public async Task<UserResponseDTO> GetUser(string userId)
+        public async Task<SchoolResponseDTO> GetUser(string userId)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                var response = UserMappings.GetUserResponse(user);
+                var response = SchoolMappings.GetUserResponse(user);
+                return response;
             }
             throw new ArgumentException("Resource not found");
         }
@@ -47,14 +48,14 @@ namespace FaceRecognition.BL
         }
 
         //to update user info
-        public async Task<bool> Update(string userId, UpdateUserRequest updateUser)
+        public async Task<bool> Update(string userId, UpdateSchoolUserRequest updateUser)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null)
             {
-                user.FirstName = string.IsNullOrWhiteSpace(updateUser.FirstName) ? user.FirstName : updateUser.FirstName;
-                user.LastName = string.IsNullOrWhiteSpace(updateUser.LastName) ? user.LastName : updateUser.LastName;
-                user.PhoneNumber = string.IsNullOrWhiteSpace(updateUser.PhoneNumber) ? user.PhoneNumber : updateUser.PhoneNumber;
+                user.SchoolName = string.IsNullOrWhiteSpace(updateUser.SchoolName) ? user.SchoolName : updateUser.SchoolName;
+                user.Location = string.IsNullOrWhiteSpace(updateUser.Location) ? user.Location : updateUser.Location;
+                user.Country = string.IsNullOrWhiteSpace(updateUser.Country) ? user.Country : updateUser.Country;
 
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
