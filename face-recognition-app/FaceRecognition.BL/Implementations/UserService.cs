@@ -56,6 +56,7 @@ namespace FaceRecognition.BL
                 user.SchoolName = string.IsNullOrWhiteSpace(updateUser.SchoolName) ? user.SchoolName : updateUser.SchoolName;
                 user.Location = string.IsNullOrWhiteSpace(updateUser.Location) ? user.Location : updateUser.Location;
                 user.Country = string.IsNullOrWhiteSpace(updateUser.Country) ? user.Country : updateUser.Country;
+                user.Email = string.IsNullOrWhiteSpace(updateUser.Email) ? user.Email : updateUser.Email;
 
                 var result = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)

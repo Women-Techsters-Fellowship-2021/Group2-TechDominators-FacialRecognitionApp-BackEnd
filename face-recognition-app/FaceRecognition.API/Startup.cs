@@ -50,6 +50,8 @@ namespace FaceRecognition.API
 
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IParentService, ParentService>();
+            services.AddScoped<IStudentService, StudentService>();
             services.AddScoped<ITokenGenerator, TokenGenerator>();
 
             services.AddDbContext<RecognitionContext>(options =>

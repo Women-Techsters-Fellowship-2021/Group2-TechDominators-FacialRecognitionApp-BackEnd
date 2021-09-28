@@ -17,8 +17,8 @@ namespace FaceRecognition.API.Controllers
         {
             _userService = userservice;
         }
-        // to retrieve a specific user
-        [HttpGet("{id}")]
+        // to retrieve a specific user  
+        [HttpGet("{userId}")]
         public async Task<ActionResult<SchoolResponseDTO>> GetUser(string userId)
         {
             try
