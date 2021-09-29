@@ -4,11 +4,9 @@ using FaceRecognition.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Cors;
 
 namespace FaceRecognition.API.Controllers
 {
-    [EnableCors("MyPolicy")]
     [ApiController]
     [Route("api/v1/[controller]")]
     public class AuthenticationController : ControllerBase
@@ -21,7 +19,7 @@ namespace FaceRecognition.API.Controllers
 
         // POST method for logging in users
         [HttpPost("login")]
-        public async Task<ActionResult<UserResponseDTO>> LoginUser(UserRequestDTO userRequest)
+        public async Task<ActionResult<SchoolResponseDTO>> LoginUser(UserLoginRequestDTO userRequest)
         {
             try
             {
@@ -40,12 +38,12 @@ namespace FaceRecognition.API.Controllers
 
         // POST method for registering users
         [HttpPost]
-        public async Task<ActionResult<UserResponseDTO>> Register(RegistrationRequest registrationRequest)
+        public async Task<ActionResult<SchoolResponseDTO>> Register(SchoolRegistrationRequest registrationRequest)
         {
             try
             {
                 var response = await _authenticationService.Register(registrationRequest);
-                var request = UserMappings.GetUserRequest(response);
+                // var request = SchoolMappings.GetUserRequest(response);
                 return Created("~/api/v1/authentication/" + response.Id, response);
             }
             catch (MissingFieldException message)

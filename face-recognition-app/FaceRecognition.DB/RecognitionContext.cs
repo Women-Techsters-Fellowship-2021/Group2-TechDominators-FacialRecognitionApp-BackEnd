@@ -16,10 +16,14 @@ namespace FaceRecognition.DB
             public RecognitionContext CreateDbContext(string[] args)
             {
                 var optionsBuilder = new DbContextOptionsBuilder<RecognitionContext>();
-                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=User_Management;User id=SA;Password=Anthr0p0m0rphyzz44");
+                optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=School_Management;User id=SA;Password=Anthr0p0m0rphyzz44");
 
                 return new RecognitionContext(optionsBuilder.Options);
             }
         }
+
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Parent> Parents { get; set; }
+
     }
 }

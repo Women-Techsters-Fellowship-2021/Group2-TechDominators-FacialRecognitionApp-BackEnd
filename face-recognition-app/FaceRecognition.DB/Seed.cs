@@ -18,24 +18,25 @@ namespace FaceRecognition.DB
                 {
                     new AppUser
                     {
-                        FirstName="John",
-                        LastName="Smith",
+                        SchoolName="John Smith",
+                        Location="232, cannon",
+                        Country="Kenya",
                         Email="jsmith@gmail.com",
                         PhoneNumber="6758299020"
                     },
                     new AppUser
                     {
-                        FirstName="Phineas",
-                        LastName="Ferb",
+                        SchoolName="Phineas",
+                        Location="454, Ferb",
+                        Country = "Nigeria",
                         Email="phfe@gmail.com",
                         PhoneNumber="6754782390"
-
                     }
                 };
                 foreach (var user in users)
                 {
                     await userManager.CreateAsync(user, "P@ssW0rd");
-                    // await context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
                 }
             }
         }
