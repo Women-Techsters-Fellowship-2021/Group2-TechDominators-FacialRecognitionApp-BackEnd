@@ -19,21 +19,21 @@ namespace FaceRecognition.BL
         }
 
         //    adds new student
-        public async Task<Student> CreateStudent(StudentRequest request)
+        public async Task<StudentResponse> CreateStudent(StudentRequest request)
         {
-           Student student = StudentMappings.GetStudent(request);
+            Student student = StudentMappings.GetStudent(request);
             await _context.AddAsync(student);
             var result = await _context.SaveChangesAsync();
             if (result <= 0)
             {
                 throw new ArgumentException("Cannot create student at this time");
             }
-            return student;
+            return StudentMappings.GetStudentResponse(student);
         }
 
 
         //   gets a particular student using the id
-        public async Task<Student> GetStudent(string studentId)
+        public async Task<StudentResponse> GetStudent(string studentId)
         {
             Student student = await _context.Students
             .FirstOrDefaultAsync(student => student.Id == studentId);
@@ -41,7 +41,24 @@ namespace FaceRecognition.BL
             {
                 throw new ArgumentNullException("Resource does not exist");
             }
-            return student;
+            return StudentMappings.GetStudentResponse(student);
+        }
+        //   gets a particular student using their name
+        public async Task<IEnumerable<Student>> GetStudentbyName(string studentName)
+        {
+            IQueryable<Student> query = _context.Students.Include(emp => emp.Parents);
+
+            if (query != null)
+            {
+                if (!String.IsNullOrEmpty(studentName))
+                {
+                    query = query.Where(e => e.FullName.Contains(studentName));
+                    return await query.ToListAsync();
+                }
+                throw new ArgumentNullException("Resource does not exist");
+            }
+
+            throw new ArgumentNullException("Resource does not exist");
         }
 
 

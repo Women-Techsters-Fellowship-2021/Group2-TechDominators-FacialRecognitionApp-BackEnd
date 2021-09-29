@@ -10,8 +10,8 @@ namespace FaceRecognition.BL
         Task<ParentResponseDTO> CreateParent(ParentRequest request);
         Task<bool> DeleteParent(string parentId);
         Task<List<Parent>> GetAllParents(string studentId);
-        Task<Parent> GetParent(string parentId);
-        Task<Parent> GetParentByEmail(string email);
+        Task<ParentResponseDTO> GetParent(string parentId);
+        Task<ParentResponseDTO> GetParentByEmail(string email);
 
     }
 }

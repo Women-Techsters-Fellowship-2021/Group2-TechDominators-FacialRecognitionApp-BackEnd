@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FaceRecognition.DB.Migrations
 {
     [DbContext(typeof(RecognitionContext))]
-    [Migration("20210927075023_InitialCreate")]
+    [Migration("20210929114339_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,6 +107,9 @@ namespace FaceRecognition.DB.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ParentPhoto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentScannedPhoto")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")

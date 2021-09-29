@@ -188,6 +188,7 @@ namespace FaceRecognition.DB.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ParentPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ParentScannedPhoto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     StudentId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },

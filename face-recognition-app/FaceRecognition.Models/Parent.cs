@@ -9,6 +9,7 @@ namespace FaceRecognition.Models
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public string ParentPhoto { get; set; }
+        public string ParentScannedPhoto { get; set; }
         public AppUser User { get; set; }
 
         [ForeignKey("User")]

@@ -107,6 +107,9 @@ namespace FaceRecognition.DB.Migrations
                     b.Property<string>("ParentPhoto")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ParentScannedPhoto")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 

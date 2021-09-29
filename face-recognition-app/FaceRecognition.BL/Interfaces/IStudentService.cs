@@ -7,11 +7,12 @@ namespace FaceRecognition.BL
 {
     public interface IStudentService
     {
-        Task<Student> CreateStudent(StudentRequest request);
+        Task<StudentResponse> CreateStudent(StudentRequest request);
         Task<bool> DeleteStudent(string studentId);
         Task<List<Student>> GetAllStudents(string schoolId);
-        Task<Student> GetStudent(string studentId);
+        Task<StudentResponse> GetStudent(string studentId);
         Task<bool> UpdateStudent(string studentId, UpdateStudentRequest updateStudent);
+        Task<IEnumerable<Student>> GetStudentbyName(string studentName);
 
     }
 }

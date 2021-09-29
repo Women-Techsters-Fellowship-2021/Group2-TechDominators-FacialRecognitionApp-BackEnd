@@ -33,7 +33,7 @@ namespace FaceRecognition.BL
 
 
         //   gets a particular parent using their id
-        public async Task<Parent> GetParent(string parentId)
+        public async Task<ParentResponseDTO> GetParent(string parentId)
         {
             Parent parent = await _context.Parents
             .FirstOrDefaultAsync(parent => parent.Id == parentId);
@@ -41,10 +41,10 @@ namespace FaceRecognition.BL
             {
                 throw new ArgumentNullException("Resource does not exist");
             }
-            return parent;
+            return ParentMappings.GetParentResponse(parent);
         }
         //   gets a particular parent using their email
-        public async Task<Parent> GetParentByEmail(string email)
+        public async Task<ParentResponseDTO> GetParentByEmail(string email)
         {
             Parent parent = await _context.Parents
             .FirstOrDefaultAsync(parent => parent.Email == email);
@@ -52,7 +52,7 @@ namespace FaceRecognition.BL
             {
                 throw new ArgumentNullException("Resource does not exist");
             }
-            return parent;
+            return ParentMappings.GetParentResponse(parent);
         }
 
         // get all parents registered on the system for a specific child
