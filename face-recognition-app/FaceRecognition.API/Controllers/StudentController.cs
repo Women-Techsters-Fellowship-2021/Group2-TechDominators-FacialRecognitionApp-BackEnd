@@ -56,8 +56,8 @@ namespace FaceRecognition.API.Controllers
             }
         }
 
-        [HttpGet("ByName")]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudentbyName(string studentName)
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<Student>>> Search(string studentName)
         {
             try
             {
